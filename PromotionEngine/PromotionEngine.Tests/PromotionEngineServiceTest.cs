@@ -20,7 +20,6 @@ namespace PromotionEngine.Tests
 
             promotionService = new PromotionService();
 
-
             engineService = new PromotionEngineService(promotionService, productService);
         }
 
@@ -74,6 +73,15 @@ namespace PromotionEngine.Tests
             InActivePromotionCode ex = Assert.Throws<InActivePromotionCode>(() => engineService.CheckOut("Promotion5", cartService.GetCart()));
             Assert.IsNotNull(ex);
             Assert.AreEqual("Promotion id:Promotion5 is inActive", ex.Message);
+
+        }
+
+        [Test]
+        public void PromotionEngineService_Checkout_Null_Cart_Throws_ArgumentException()
+        {
+            CartService cartService = Helper.Helper.InitializeCartServiceWithCart("Scenario A", productService);
+            PromotionEngineArgumentException ex = Assert.Throws<PromotionEngineArgumentException>(() => engineService.CheckOut("Promotion1", null));
+            Assert.AreEqual("Cart does not contain any item", ex.Message);
 
         }
     }
