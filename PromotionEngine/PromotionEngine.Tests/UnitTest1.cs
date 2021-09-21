@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using PromotionEngine.Models;
+using PromotionEngine.Services;
 
 namespace PromotionEngine.Tests
 {
@@ -7,6 +9,8 @@ namespace PromotionEngine.Tests
         [SetUp]
         public void Setup()
         {
+            ProductService productService = new ProductService();
+           
         }
 
         [Test]

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace PromotionEngine.Services
 {
-    class CartService : ICartService
+   public  class CartService : ICartService
     {
         private readonly IProductService productService;
         private readonly Cart cart;
@@ -51,26 +51,6 @@ namespace PromotionEngine.Services
             return cart;
         }
 
-        /// <summary>
-        /// Validates whether items in the cart is valid or not
-        /// </summary>
-        /// <param name="cart"></param>
-        /// <returns></returns>
-        public bool IsValidCart(Cart mycart)
-        {
-            if (mycart == null || mycart.Items == null || mycart.Items.Count == 0)
-            {
-                throw new ArgumentException("Cart does not contain any item");
-            }
-            var products = productService.GetProducts();
-            foreach (var item in mycart.Items)
-            {
-                if (products.ToList().Exists(p => p.SKUId  == item.SKUId && p.AvailableQuantity >= item.Quantity))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        
     }
 }

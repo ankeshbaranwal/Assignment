@@ -1,4 +1,5 @@
-﻿using PromotionEngine.Services;
+﻿using PromotionEngine.Models;
+using PromotionEngine.Services;
 using System;
 
 namespace PromotionEngine
@@ -11,7 +12,7 @@ namespace PromotionEngine
             CartService cartService = InitializeCartServiceWithCart("Scenario B", productService);
             PromotionService promotionService = new PromotionService();
             PromotionEngineService engineService = new PromotionEngineService(promotionService, productService);
-            engineService.CheckOut("Promotion1", cartService.GetCart());
+            Cart cart = engineService.CheckOut("Promotion1", cartService.GetCart());
         }
 
         private static CartService InitializeCartServiceWithCart(string scenario, ProductService productService)
@@ -20,8 +21,8 @@ namespace PromotionEngine
             if (scenario.Equals("Scenario A", StringComparison.OrdinalIgnoreCase))
             {
                 cartService.AddToCart('A', 1);
-                cartService.AddToCart('B', 1);
-                cartService.AddToCart('C', 1);
+                //cartService.AddToCart('B', 1);
+                //cartService.AddToCart('C', 1);
             }
             else if (scenario.Equals("Scenario B", StringComparison.OrdinalIgnoreCase))
             {

@@ -24,11 +24,5 @@ namespace PromotionEngine.Services
         /// <returns></returns>
         bool AddToCart(char prodId, int quantity);
 
-        /// <summary>
-        /// IsValidCart: Validates item in Cart
-        /// </summary>
-        /// <param name="cart"></param>
-        /// <returns></returns>
-        bool IsValidCart(Cart cart);
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PromotionEngine.Services
 {
-    class PromotionService : IPromotionService
+    public class PromotionService : IPromotionService
     {
         /// <summary>
         /// Fetches promotion based on PromotionId
