@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using PromotionEngine.Extension;
+using PromotionEngine.Exceptions;
 
 namespace PromotionEngine.Services
 {
@@ -37,6 +38,11 @@ namespace PromotionEngine.Services
             if (IsValidCart(cart))
             {
                 Promotion promotion = promotionService.GetPromotion(promotionId);
+                if (promotion == null)
+                    throw new InvalidPromotionCodeException($"No Promotion found with promotion id:{promotionId}");
+                if (!promotion.IsActive)
+                    throw new InActivePromotionCode($"Promotion id:{promotionId} is inActive");
+
                 cartOrderedItems = cart.Items.GetClone();
 
                 if (promotion == null)

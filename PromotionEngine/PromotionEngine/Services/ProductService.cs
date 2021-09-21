@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PromotionEngine.Services
 {
+    /// <summary>
+    /// ProductService: Responsible for product related feature
+    /// </summary>
     public class ProductService : IProductService
     {
         public IEnumerable<Product> GetProducts()

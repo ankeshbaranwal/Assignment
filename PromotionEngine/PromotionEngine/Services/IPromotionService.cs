@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PromotionEngine.Services
 {
+    /// <summary>
+    /// IPromotionService
+    /// </summary>
     public interface IPromotionService
     {
         /// <summary>

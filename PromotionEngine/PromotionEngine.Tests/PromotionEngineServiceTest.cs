@@ -1,6 +1,8 @@
 using NUnit.Framework;
+using PromotionEngine.Exceptions;
 using PromotionEngine.Models;
 using PromotionEngine.Services;
+using System;
 
 namespace PromotionEngine.Tests
 {
@@ -52,6 +54,16 @@ namespace PromotionEngine.Tests
             Assert.IsNotNull(cart);
             Assert.IsNotNull(cart.Items);
             Assert.AreEqual(280, cart.TotalAmount);
+
+        }
+
+        [Test]
+        public void PromotionEngineService_Checkout_Invalid_PromotionCode()
+        {
+            CartService cartService = Helper.Helper.InitializeCartServiceWithCart("Scenario A", productService);
+            InvalidPromotionCodeException ex = Assert.Throws<InvalidPromotionCodeException>(() => engineService.CheckOut("Promotion2", cartService.GetCart()));
+            Assert.IsNotNull(ex);
+            Assert.AreEqual("No Promotion found with promotion id:Promotion2", ex.Message);
 
         }
     }

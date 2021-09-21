@@ -24,16 +24,30 @@ namespace PromotionEngine
             cartService.AddToCart('A', 1);
             cartService.AddToCart('B', 1);
             cartService.AddToCart('C', 1);
-            Cart cart = engineService.CheckOut("Promotion1", cartService.GetCart());
-            Console.WriteLine($"Total Amount for Scenario A after promotion is : {cart.TotalAmount}");
+            try
+            {
+                Cart cart = engineService.CheckOut("Promotion1", cartService.GetCart());
+                Console.WriteLine($"Total Amount for Scenario A after promotion is : {cart.TotalAmount}");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             //Scenario B
             cartService = provider.GetService<ICartService>();
             cartService.AddToCart('A', 5);
             cartService.AddToCart('B', 5);
             cartService.AddToCart('C', 1);
-            cart = engineService.CheckOut("Promotion1", cartService.GetCart());
-            Console.WriteLine($"Total Amount for Scenario B after promotion is : {cart.TotalAmount}");
+            try
+            {
+                Cart cart = engineService.CheckOut("Promotion1", cartService.GetCart());
+                Console.WriteLine($"Total Amount for Scenario B after promotion is : {cart.TotalAmount}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             //Scenario B
             cartService = provider.GetService<ICartService>();
@@ -41,8 +55,15 @@ namespace PromotionEngine
             cartService.AddToCart('B', 5);
             cartService.AddToCart('C', 1);
             cartService.AddToCart('D', 1);
-            cart = engineService.CheckOut("Promotion1", cartService.GetCart());
-            Console.WriteLine($"Total Amount for Scenario C after promotion is : {cart.TotalAmount}");
+            try
+            {
+                Cart cart = engineService.CheckOut("Promotion1", cartService.GetCart());
+                Console.WriteLine($"Total Amount for Scenario C after promotion is : {cart.TotalAmount}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             Console.ReadLine();
         }
