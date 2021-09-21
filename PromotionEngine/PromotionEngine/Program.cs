@@ -9,7 +9,7 @@ namespace PromotionEngine
     {
         static void Main(string[] args)
         {
-
+            string promotionId = "Promotion1";
             ServiceCollection services = new ServiceCollection();
 
             services.AddScoped<IProductService, ProductService>();
@@ -26,8 +26,8 @@ namespace PromotionEngine
             cartService.AddToCart('C', 1);
             try
             {
-                Cart cart = engineService.CheckOut("Promotion1", cartService.GetCart());
-                Console.WriteLine($"Total Amount for Scenario A after promotion is : {cart.TotalAmount}");
+                Cart cart = engineService.CheckOut(promotionId, cartService.GetCart());
+                Console.WriteLine($"Total Amount for Scenario A after promotion: {promotionId} is applied is: {cart.TotalAmount}");
             }
             catch(Exception ex)
             {
@@ -41,8 +41,8 @@ namespace PromotionEngine
             cartService.AddToCart('C', 1);
             try
             {
-                Cart cart = engineService.CheckOut("Promotion1", cartService.GetCart());
-                Console.WriteLine($"Total Amount for Scenario B after promotion is : {cart.TotalAmount}");
+                Cart cart = engineService.CheckOut(promotionId, cartService.GetCart());
+                Console.WriteLine($"Total Amount for Scenario B after promotion: {promotionId} is applied is: {cart.TotalAmount}");
             }
             catch (Exception ex)
             {
@@ -57,8 +57,8 @@ namespace PromotionEngine
             cartService.AddToCart('D', 1);
             try
             {
-                Cart cart = engineService.CheckOut("Promotion1", cartService.GetCart());
-                Console.WriteLine($"Total Amount for Scenario C after promotion is : {cart.TotalAmount}");
+                Cart cart = engineService.CheckOut(promotionId, cartService.GetCart());
+                Console.WriteLine($"Total Amount for Scenario C after promotion: {promotionId} is applied is: {cart.TotalAmount}");
             }
             catch (Exception ex)
             {
