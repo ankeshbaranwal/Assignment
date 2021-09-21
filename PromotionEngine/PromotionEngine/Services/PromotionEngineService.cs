@@ -52,8 +52,11 @@ namespace PromotionEngine.Services
                 int TotalAmount = 0;
                 foreach (var promotionItem in promotion.Promotions)
                 {
-                    var listOfItemsEligibleForPromotion = BuildPromotionEligibleItemsListForPromotionItem(promotionItem);
-                    TotalAmount += CalculateAmountForPromotion(promotionItem, listOfItemsEligibleForPromotion);
+                    if (promotionItem.TypeOfPromotion == PromotionType.Flat)
+                    {
+                        var listOfItemsEligibleForPromotion = BuildPromotionEligibleItemsListForPromotionItem(promotionItem);
+                        TotalAmount += CalculateAmountForPromotion(promotionItem, listOfItemsEligibleForPromotion);
+                    }
 
 
                 }
