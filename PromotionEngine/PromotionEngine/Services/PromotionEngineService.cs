@@ -45,17 +45,13 @@ namespace PromotionEngine.Services
 
                 cartOrderedItems = cart.Items.GetClone();
 
-                if (promotion == null)
-                {
-                    throw new Exception("Invalid Promotion Id");
-                }
                 int TotalAmount = 0;
                 foreach (var promotionItem in promotion.Promotions)
                 {
                     if (promotionItem.TypeOfPromotion == PromotionType.Flat)
                     {
-                        var listOfItemsEligibleForPromotion = BuildPromotionEligibleItemsListForPromotionItem(promotionItem);
-                        TotalAmount += CalculateAmountForPromotion(promotionItem, listOfItemsEligibleForPromotion);
+                        var orderItemsElegibleForPromotions = BuildPromotionEligibleItemsListForPromotionItem(promotionItem);
+                        TotalAmount += CalculateAmountForPromotion(promotionItem, orderItemsElegibleForPromotions);
                     }
 
 
@@ -77,7 +73,7 @@ namespace PromotionEngine.Services
         {
             if (mycart == null || mycart.Items == null || mycart.Items.Count == 0)
             {
-                throw new ArgumentException("Cart does not contain any item");
+                throw new PromotionEngineArgumentException("Cart does not contain any item");
             }
             var products = productService.GetProducts();
             foreach (var item in mycart.Items)
@@ -99,7 +95,7 @@ namespace PromotionEngine.Services
         private List<Item> BuildPromotionEligibleItemsListForPromotionItem(PromotionItem promotionItem)
         {
             int cnt = 0;
-            List<Item> listOfItemsEligibleForPromotion = new List<Item>();
+            List<Item> orderItemsElegibleForPromotions = new List<Item>();
             foreach (var promoItem in promotionItem.Items)
             {
                 cnt++;
@@ -108,18 +104,18 @@ namespace PromotionEngine.Services
                 if (itemEligibleForPromotion != null)
                 {
                     cartOrderedItems.Remove(itemEligibleForPromotion);
-                    listOfItemsEligibleForPromotion.Add(new Item(itemEligibleForPromotion));
+                    orderItemsElegibleForPromotions.Add(new Item(itemEligibleForPromotion));
                 }
                 if (cnt == promotionItem.Items.Count)
                 {
-                    if (listOfItemsEligibleForPromotion.Count > 0 && listOfItemsEligibleForPromotion.Count != cnt)
+                    if (orderItemsElegibleForPromotions.Count > 0 && orderItemsElegibleForPromotions.Count != cnt)
                     {
-                        cartOrderedItems.AddRange(listOfItemsEligibleForPromotion);
-                        listOfItemsEligibleForPromotion = null;
+                        cartOrderedItems.AddRange(orderItemsElegibleForPromotions);
+                        orderItemsElegibleForPromotions = null;
                     }
                 }
             }
-            return listOfItemsEligibleForPromotion;
+            return orderItemsElegibleForPromotions;
         }
 
         /// <summary>
@@ -128,12 +124,12 @@ namespace PromotionEngine.Services
         /// <param name="promotionItem"></param>
         /// <param name="listOfItemsEligibleForPromotion"></param>
         /// <returns></returns>
-        private int CalculateAmountForPromotion(PromotionItem promotionItem, List<Item> listOfItemsEligibleForPromotion)
+        private int CalculateAmountForPromotion(PromotionItem promotionItem, List<Item> orderItemsElegibleForPromotions)
         {
             int totalAmount = 0;
-            if (listOfItemsEligibleForPromotion != null && listOfItemsEligibleForPromotion.Count > 0)
+            if (orderItemsElegibleForPromotions != null && orderItemsElegibleForPromotions.Count > 0)
             {
-                bool isExists = listOfItemsEligibleForPromotion.Count == promotionItem.Items.Count;
+                bool isExists = orderItemsElegibleForPromotions.Count == promotionItem.Items.Count;
                 if (isExists)
                 {
                     while (isExists)
@@ -141,12 +137,12 @@ namespace PromotionEngine.Services
                         totalAmount += promotionItem.Value;
                         foreach (var promoItem in promotionItem.Items)
                         {
-                            var xx = listOfItemsEligibleForPromotion.Where(p => p.SKUId == promoItem.SKUId).FirstOrDefault();
-                            xx.Quantity -= promoItem.Quantity;
-                            isExists = xx.Quantity >= promoItem.Quantity;
+                            var item = orderItemsElegibleForPromotions.Where(p => p.SKUId == promoItem.SKUId).FirstOrDefault();
+                            item.Quantity -= promoItem.Quantity;
+                            isExists = item.Quantity >= promoItem.Quantity;
                         }
                     }
-                    cartOrderedItems.AddRange(listOfItemsEligibleForPromotion);
+                    cartOrderedItems.AddRange(orderItemsElegibleForPromotions);
                 }
             }
             return totalAmount;
