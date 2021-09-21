@@ -10,6 +10,10 @@ namespace PromotionEngine.Services
     /// </summary>
     public class ProductService : IProductService
     {
+        /// <summary>
+        /// GetProducts
+        /// </summary>
+        /// <returns>List of products</returns>
         public IEnumerable<Product> GetProducts()
         {
             List<Product> products = new List<Product>();
