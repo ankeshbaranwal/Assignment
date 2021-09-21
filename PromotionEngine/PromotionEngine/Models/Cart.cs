@@ -4,7 +4,8 @@ using System.Text;
 
 namespace PromotionEngine.Models
 {
-    class Cart
+
+    public class Cart
     {
         public List<Item> Items { get; set; }
         public int TotalAmount { get; set; }
