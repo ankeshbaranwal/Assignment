@@ -4,7 +4,7 @@ using PromotionEngine.Services;
 
 namespace PromotionEngine.Tests
 {
-    public class Tests
+    public class PromotionEngineServicetest
     {
 
         private ProductService productService;
