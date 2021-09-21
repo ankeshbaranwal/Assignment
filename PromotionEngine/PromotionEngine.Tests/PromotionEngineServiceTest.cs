@@ -66,5 +66,15 @@ namespace PromotionEngine.Tests
             Assert.AreEqual("No Promotion found with promotion id:Promotion2", ex.Message);
 
         }
+
+        [Test]
+        public void PromotionEngineService_Checkout_Inactive_PromotionCode()
+        {
+            CartService cartService = Helper.Helper.InitializeCartServiceWithCart("Scenario A", productService);
+            InActivePromotionCode ex = Assert.Throws<InActivePromotionCode>(() => engineService.CheckOut("Promotion5", cartService.GetCart()));
+            Assert.IsNotNull(ex);
+            Assert.AreEqual("Promotion id:Promotion5 is inActive", ex.Message);
+
+        }
     }
 }
