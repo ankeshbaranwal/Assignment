@@ -7,7 +7,7 @@ namespace PromotionEngine.Models
     /// <summary>
     /// Promotion
     /// </summary>
-    class Promotion
+    public class Promotion
     {
         /// <summary>
         /// PromotionId
